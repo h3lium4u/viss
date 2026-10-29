@@ -4,8 +4,7 @@
   "description": "SAPUI5 Assigned vs Not Assigned Analytics Dashboard",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "build": "node -e \"console.log('Vercel static build successful')\"",
+    "start": "node dev-server.js",
     "test": "node test/dashboard.test.js"
   },
   "keywords": [
@@ -13,8 +12,7 @@
     "openui5",
     "fiori",
     "dashboard",
-    "data-visualization",
-    "vercel"
+    "data-visualization"
   ],
   "author": "",
   "license": "UNLICENSED"
