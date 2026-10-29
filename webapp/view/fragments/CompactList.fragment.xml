@@ -1,0 +1,72 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dash="sap.dashboard.control">
+    <Table
+        id="compactListTable"
+        items="{dashboard>/filteredItems}"
+        mode="None"
+        itemPress=".onTableItemPress"
+        growing="true"
+        growingThreshold="50"
+        class="sapUiResponsiveMargin">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Items ({= ${dashboard>/filteredItems}.length})" level="H3" />
+                <ToolbarSpacer />
+                <Text text="{= ${dashboard>/scaleMode} === 'absolute' ? 'Scale: Absolute Volume' : 'Scale: Proportional (100%)'}" />
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column width="220px">
+                <Text text="Item Identification" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" width="280px">
+                <Text text="Assigned vs Not Assigned" />
+            </Column>
+            <Column hAlign="End" width="110px">
+                <Text text="Assigned" />
+            </Column>
+            <Column hAlign="End" width="120px">
+                <Text text="Not Assigned" />
+            </Column>
+            <Column hAlign="End" width="100px">
+                <Text text="Rate %" />
+            </Column>
+            <Column hAlign="End" width="90px">
+                <Text text="Total" />
+            </Column>
+            <Column width="140px" minScreenWidth="Desktop" demandPopin="true">
+                <Text text="Status" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem type="Navigation" press=".onItemPress">
+                <cells>
+                    <VBox>
+                        <Text text="{dashboard>id}" class="sapUiTinyMarginBottom sapDashCardId" />
+                        <Text text="{dashboard>name}" tooltip="{dashboard>name}" maxLines="1" class="sapUiBold" />
+                    </VBox>
+                    <VBox justifyContent="Center">
+                        <dash:SegmentedBar
+                            assigned="{dashboard>assigned}"
+                            notAssigned="{dashboard>notAssigned}"
+                            total="{dashboard>total}"
+                            scaleMode="{dashboard>/scaleMode}"
+                            maxVolume="{dashboard>/stats/maxItemVolume}"
+                            height="12px" />
+                    </VBox>
+                    <ObjectNumber number="{dashboard>assigned}" emphasized="false" class="sapDashCountBlue" />
+                    <ObjectNumber number="{dashboard>notAssigned}" emphasized="false" class="sapDashCountGold" />
+                    <ObjectStatus
+                        text="{parts: [{path: 'dashboard>assignedPercentage'}], formatter: '.formatter.percentageText'}"
+                        state="{parts: [{path: 'dashboard>status'}], formatter: '.formatter.statusState'}" />
+                    <Text text="{dashboard>total}" />
+                    <ObjectStatus
+                        text="{parts: [{path: 'dashboard>status'}], formatter: '.formatter.statusText'}"
+                        state="{parts: [{path: 'dashboard>status'}], formatter: '.formatter.statusState'}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

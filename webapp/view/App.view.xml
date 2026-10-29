@@ -1,0 +1,13 @@
+<mvc:View
+    controllerName="sap.dashboard.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    displayBlock="true"
+    height="100%">
+    <App id="appRoot">
+        <pages>
+            <mvc:XMLView viewName="sap.dashboard.view.Dashboard" id="dashboardView" />
+        </pages>
+    </App>
+</mvc:View>

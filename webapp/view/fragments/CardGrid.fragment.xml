@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dash="sap.dashboard.control">
+    <VBox width="100%">
+        <!-- Proportional / Absolute Scale Mode Indicator -->
+        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+            <Text text="{= ${dashboard>/filteredItems}.length + ' items displayed'}" class="sapUiTinyMarginBegin" />
+            <Text text="{= ${dashboard>/scaleMode} === 'absolute' ? 'Scale: Absolute Volume (Track represents max volume ' + ${dashboard>/stats/maxItemVolume} + ')' : 'Scale: Proportional (100% of item volume)'}"
+                  class="sapDashScaleHint" />
+        </HBox>
+
+        <!-- Card Grid Container -->
+        <HBox wrap="Wrap" items="{dashboard>/filteredItems}" class="sapDashCardGrid">
+            <dash:ItemCard
+                itemId="{dashboard>id}"
+                name="{dashboard>name}"
+                assigned="{dashboard>assigned}"
+                notAssigned="{dashboard>notAssigned}"
+                total="{dashboard>total}"
+                assignedPercentage="{dashboard>assignedPercentage}"
+                status="{dashboard>status}"
+                scaleMode="{dashboard>/scaleMode}"
+                maxVolume="{dashboard>/stats/maxItemVolume}"
+                press=".onItemPress" />
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

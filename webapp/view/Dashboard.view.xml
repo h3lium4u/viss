@@ -1,0 +1,245 @@
+<mvc:View
+    controllerName="sap.dashboard.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:dash="sap.dashboard.control"
+    height="100%">
+    <Page showHeader="false" enableScrolling="true" class="sapUiContentPadding">
+        <!-- SAP Fiori ShellBar -->
+        <f:ShellBar
+            title="SAP Fiori Workload Analytics"
+            secondTitle="Enterprise Resource Planning"
+            homeIcon="https://ui5.sap.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"
+            showCopilot="true"
+            showSearch="false"
+            showNotifications="true"
+            notificationsNumber="3"
+            class="sapDashShellHeader">
+            <f:profile>
+                <Avatar initials="JD" displaySize="XS" />
+            </f:profile>
+        </f:ShellBar>
+
+        <!-- Page Header & Title -->
+        <VBox class="sapDashPageHeader">
+            <Breadcrumbs currentLocationText="Assigned vs Not Assigned Analytics" class="sapUiTinyMarginBottom">
+                <Link text="Home" href="#" />
+                <Link text="Operations" href="#" />
+                <Link text="Analytics Hub" href="#" />
+            </Breadcrumbs>
+            <HBox justifyContent="SpaceBetween" alignItems="Center">
+                <VBox>
+                    <Title text="Assigned vs. Not Assigned Workload" level="H1" class="sapDashPageTitle" />
+                    <Text text="Comparative data visualization across 6 multi-paradigm views using deterministic enterprise cohorts." class="sapUiTinyMarginTop sapDashDialogMetaLabel" />
+                </VBox>
+                <HBox alignItems="Center">
+                    <ObjectStatus text="Deterministic Engine Active" state="Information" inverted="true" class="sapUiSmallMarginEnd" />
+                    <ObjectStatus text="Horizon Theme" state="Success" inverted="true" />
+                </HBox>
+            </HBox>
+        </VBox>
+
+        <VBox class="sapUiResponsiveMargin">
+            <!-- Macro KPI Tiles -->
+            <HBox wrap="Wrap" justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                <!-- Tile 1: Total Items -->
+                <VBox class="sapDashTileCard" width="23%">
+                    <Text text="TOTAL MONITORED ITEMS" class="sapDashTileLabel" />
+                    <Title text="{dashboard>/stats/totalItems}" level="H2" class="sapDashTileValue" />
+                    <Text text="{= ${dashboard>/filteredItems}.length + ' matching active filters'}" class="sapUiTinyMarginTop sapDashDialogMetaLabel" />
+                </VBox>
+
+                <!-- Tile 2: Total Assigned -->
+                <VBox class="sapDashTileCard" width="23%">
+                    <Text text="TOTAL ASSIGNED VOLUME" class="sapDashTileLabel" />
+                    <Title text="{parts: [{path: 'dashboard>/stats/totalAssigned'}], formatter: '.formatter.formatNumber'}" level="H2" class="sapDashTileValue sapDashCountBlue" />
+                    <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                        <core:Icon src="sap-icon://sys-enter-2" size="0.75rem" color="#0a6ed1" class="sapUiTinyMarginEnd" />
+                        <Text text="Allocated workload slots" class="sapDashDialogMetaLabel" />
+                    </HBox>
+                </VBox>
+
+                <!-- Tile 3: Total Not Assigned -->
+                <VBox class="sapDashTileCard" width="23%">
+                    <Text text="TOTAL NOT ASSIGNED VOLUME" class="sapDashTileLabel" />
+                    <Title text="{parts: [{path: 'dashboard>/stats/totalNotAssigned'}], formatter: '.formatter.formatNumber'}" level="H2" class="sapDashTileValue sapDashCountGold" />
+                    <HBox alignItems="Center" class="sapUiTinyMarginTop">
+                        <core:Icon src="sap-icon://alert" size="0.75rem" color="#d08014" class="sapUiTinyMarginEnd" />
+                        <Text text="Unallocated capacity &amp; backlog" class="sapDashDialogMetaLabel" />
+                    </HBox>
+                </VBox>
+
+                <!-- Tile 4: Overall Assigned Rate -->
+                <VBox class="sapDashTileCard" width="23%">
+                    <Text text="OVERALL ASSIGNMENT RATE" class="sapDashTileLabel" />
+                    <Title text="{parts: [{path: 'dashboard>/stats/overallPercentage'}], formatter: '.formatter.percentageText'}" level="H2" class="sapDashTileValue" />
+                    <Text text="{= 'Total volume: ' + ${dashboard>/stats/totalVolume}}" class="sapUiTinyMarginTop sapDashDialogMetaLabel" />
+                </VBox>
+            </HBox>
+
+            <!-- Macro Distribution Bar -->
+            <VBox class="sapDashTileCard sapUiSmallMarginBottom">
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiTinyMarginBottom">
+                    <Text text="COHORT VOLUME DISTRIBUTION" class="sapDashTileLabel" />
+                    <HBox alignItems="Center">
+                        <HBox alignItems="Center" class="sapUiSmallMarginEnd">
+                            <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#0a6ed1" class="sapUiTinyMarginEnd" />
+                            <Text text="{parts: [{path: 'dashboard>/stats/totalAssigned'}, {path: 'dashboard>/stats/overallPercentage'}], formatter: '.formatter.macroDistributionText'}" />
+                        </HBox>
+                        <HBox alignItems="Center">
+                            <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#d08014" class="sapUiTinyMarginEnd" />
+                            <Text text="{= 'Not Assigned: ' + ${dashboard>/stats/totalNotAssigned}}" />
+                        </HBox>
+                    </HBox>
+                </HBox>
+                <dash:SegmentedBar
+                    assigned="{dashboard>/stats/totalAssigned}"
+                    notAssigned="{dashboard>/stats/totalNotAssigned}"
+                    total="{dashboard>/stats/totalVolume}"
+                    scaleMode="proportion"
+                    height="12px" />
+            </VBox>
+
+            <!-- Controls Toolbar -->
+            <VBox class="sapDashControlsPanel">
+                <!-- Top Row: View Switcher + Scale Switcher + Cohort Switcher -->
+                <HBox wrap="Wrap" justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                    <!-- 6-View Mode Selector -->
+                    <VBox class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+                        <Label text="Visualization Mode (6 Modes)" design="Bold" class="sapUiTinyMarginBottom" />
+                        <SegmentedButton selectedKey="{dashboard>/viewMode}" selectionChange=".onViewModeChange">
+                            <items>
+                                <SegmentedButtonItem key="grid" text="Card Grid" icon="sap-icon://grid" />
+                                <SegmentedButtonItem key="list" text="Compact List" icon="sap-icon://list" />
+                                <SegmentedButtonItem key="heatmap" text="Heatmap Matrix" icon="sap-icon://heatmap-chart" />
+                                <SegmentedButtonItem key="butterfly" text="Butterfly Chart" icon="sap-icon://horizontal-combination-chart" />
+                                <SegmentedButtonItem key="dumbbell" text="Dumbbell Plot" icon="sap-icon://line-chart" />
+                                <SegmentedButtonItem key="pie" text="Circular Donut / Pie" icon="sap-icon://pie-chart" />
+                            </items>
+                        </SegmentedButton>
+                    </VBox>
+
+                    <!-- Scale Mode Selector -->
+                    <VBox class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+                        <Label text="Visualization Scale" design="Bold" class="sapUiTinyMarginBottom" />
+                        <SegmentedButton selectedKey="{dashboard>/scaleMode}" selectionChange=".onScaleModeChange">
+                            <items>
+                                <SegmentedButtonItem key="proportion" text="Proportion (%)" icon="sap-icon://percentage" />
+                                <SegmentedButtonItem key="absolute" text="Absolute Volume" icon="sap-icon://measure" />
+                            </items>
+                        </SegmentedButton>
+                    </VBox>
+
+                    <!-- Cohort Size Selector -->
+                    <VBox class="sapUiTinyMarginBottom">
+                        <Label text="Sample Cohort Size" design="Bold" class="sapUiTinyMarginBottom" />
+                        <SegmentedButton selectedKey="{dashboard>/cohortSize}" selectionChange=".onCohortSizeChange">
+                            <items>
+                                <SegmentedButtonItem key="30" text="30 Items" />
+                                <SegmentedButtonItem key="50" text="50 Items" />
+                                <SegmentedButtonItem key="100" text="100 Items" />
+                            </items>
+                        </SegmentedButton>
+                    </VBox>
+                </HBox>
+
+                <!-- Bottom Row: Search, Status Filter, Sort, Reset -->
+                <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceBetween">
+                    <HBox wrap="Wrap" alignItems="Center" class="sapUiTinyMarginBottom">
+                        <!-- Search Field -->
+                        <SearchField
+                            value="{dashboard>/searchQuery}"
+                            placeholder="Search by ID, name or category..."
+                            liveChange=".onSearchLiveChange"
+                            width="280px"
+                            class="sapUiSmallMarginEnd" />
+
+                        <!-- Status Filter Dropdown -->
+                        <Select
+                            selectedKey="{dashboard>/statusFilter}"
+                            change=".onFilterChange"
+                            width="200px"
+                            class="sapUiSmallMarginEnd">
+                            <items>
+                                <core:Item key="all" text="{= 'All Statuses (' + ${dashboard>/allItems}.length + ')'}" />
+                                <core:Item key="fully-assigned" text="{= 'Fully Assigned (' + ${dashboard>/stats/fullyAssignedCount} + ')'}" />
+                                <core:Item key="partially-assigned" text="{= 'Partially Assigned (' + ${dashboard>/stats/partiallyAssignedCount} + ')'}" />
+                                <core:Item key="none-assigned" text="{= 'None Assigned (' + ${dashboard>/stats/noneAssignedCount} + ')'}" />
+                                <core:Item key="no-data" text="{= 'No Data (' + ${dashboard>/stats/noDataCount} + ')'}" />
+                            </items>
+                        </Select>
+
+                        <!-- Sort Field Dropdown -->
+                        <Select
+                            selectedKey="{dashboard>/sortOption}"
+                            change=".onSortChange"
+                            width="210px"
+                            class="sapUiSmallMarginEnd">
+                            <items>
+                                <core:Item key="name-asc" text="Sort: Name (A–Z)" />
+                                <core:Item key="percent-desc" text="Sort: Assigned % (High–Low)" />
+                                <core:Item key="percent-asc" text="Sort: Assigned % (Low–High)" />
+                                <core:Item key="not-assigned-desc" text="Sort: Not Assigned (High–Low)" />
+                                <core:Item key="total-desc" text="Sort: Total Volume (High–Low)" />
+                            </items>
+                        </Select>
+                    </HBox>
+
+                    <!-- Reset Controls Button -->
+                    <Button
+                        text="Reset Filters"
+                        icon="sap-icon://refresh"
+                        type="Transparent"
+                        press=".onResetFilters"
+                        class="sapUiTinyMarginBottom" />
+                </HBox>
+            </VBox>
+
+            <!-- Empty State (When no items match search/filter) -->
+            <VBox
+                visible="{= ${dashboard>/filteredItems}.length === 0}"
+                alignItems="Center"
+                justifyContent="Center"
+                class="sapDashTileCard sapUiLargeMarginTop sapUiLargeMarginBottom"
+                height="240px">
+                <core:Icon src="sap-icon://search" size="3rem" color="#89919a" class="sapUiSmallMarginBottom" />
+                <Title text="No matching data items found" level="H3" />
+                <Text text="Try adjusting your search query or selecting a different status filter." class="sapUiTinyMarginTop sapDashDialogMetaLabel" />
+                <Button text="Clear Filters" type="Emphasized" press=".onResetFilters" class="sapUiMediumMarginTop" />
+            </VBox>
+
+            <!-- Six Visualization Panes (Dynamically Toggled) -->
+            <!-- 1. Card Grid -->
+            <VBox visible="{= ${dashboard>/viewMode} === 'grid' &amp;&amp; ${dashboard>/filteredItems}.length &gt; 0}">
+                <core:Fragment fragmentName="sap.dashboard.view.fragments.CardGrid" type="XML" />
+            </VBox>
+
+            <!-- 2. Compact List -->
+            <VBox visible="{= ${dashboard>/viewMode} === 'list' &amp;&amp; ${dashboard>/filteredItems}.length &gt; 0}">
+                <core:Fragment fragmentName="sap.dashboard.view.fragments.CompactList" type="XML" />
+            </VBox>
+
+            <!-- 3. Heatmap Matrix -->
+            <VBox visible="{= ${dashboard>/viewMode} === 'heatmap' &amp;&amp; ${dashboard>/filteredItems}.length &gt; 0}">
+                <core:Fragment fragmentName="sap.dashboard.view.fragments.HeatmapMatrix" type="XML" />
+            </VBox>
+
+            <!-- 4. Butterfly Diverging Chart -->
+            <VBox visible="{= ${dashboard>/viewMode} === 'butterfly' &amp;&amp; ${dashboard>/filteredItems}.length &gt; 0}">
+                <core:Fragment fragmentName="sap.dashboard.view.fragments.ButterflyChart" type="XML" />
+            </VBox>
+
+            <!-- 5. Dumbbell Paired Dot Plot -->
+            <VBox visible="{= ${dashboard>/viewMode} === 'dumbbell' &amp;&amp; ${dashboard>/filteredItems}.length &gt; 0}">
+                <core:Fragment fragmentName="sap.dashboard.view.fragments.DumbbellPlot" type="XML" />
+            </VBox>
+
+            <!-- 6. Circular Donut / Pie Chart -->
+            <VBox visible="{= ${dashboard>/viewMode} === 'pie' &amp;&amp; ${dashboard>/filteredItems}.length &gt; 0}">
+                <core:Fragment fragmentName="sap.dashboard.view.fragments.PieChart" type="XML" />
+            </VBox>
+        </VBox>
+    </Page>
+</mvc:View>

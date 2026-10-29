@@ -1,0 +1,101 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dash="sap.dashboard.control">
+    <Dialog
+        id="itemDetailDialog"
+        title="Item Analysis &amp; Assignment Breakdown"
+        contentWidth="560px"
+        escapeHandler=".onDialogEscape">
+        <content>
+            <VBox class="sapUiResponsivePadding">
+                <!-- Header Box -->
+                <VBox class="sapDashDialogHeaderBox">
+                    <HBox justifyContent="SpaceBetween" alignItems="Center">
+                        <Text text="{dashboard>/selectedItem/id}" class="sapDashCardId" />
+                        <ObjectStatus
+                            text="{parts: [{path: 'dashboard>/selectedItem/assignedPercentage'}], formatter: '.formatter.percentageText'}"
+                            state="{parts: [{path: 'dashboard>/selectedItem/status'}], formatter: '.formatter.statusState'}"
+                            class="sapDashCardPct" />
+                    </HBox>
+                    <Title text="{dashboard>/selectedItem/name}" level="H3" class="sapUiTinyMarginTop" />
+                    <Text text="{dashboard>/selectedItem/description}" class="sapUiTinyMarginTop sapDashDialogMetaLabel" />
+                </VBox>
+
+                <!-- Metadata Grid -->
+                <HBox class="sapDashDialogMetaGrid" justifyContent="SpaceBetween">
+                    <VBox class="sapDashDialogMetaItem">
+                        <Text text="CATEGORY" class="sapDashDialogMetaLabel" />
+                        <Text text="{dashboard>/selectedItem/category}" class="sapDashDialogMetaValue" />
+                    </VBox>
+                    <VBox class="sapDashDialogMetaItem">
+                        <Text text="DEPARTMENT" class="sapDashDialogMetaLabel" />
+                        <Text text="{dashboard>/selectedItem/department}" class="sapDashDialogMetaValue" />
+                    </VBox>
+                    <VBox class="sapDashDialogMetaItem">
+                        <Text text="PRIORITY" class="sapDashDialogMetaLabel" />
+                        <Text text="{dashboard>/selectedItem/priority}" class="sapDashDialogMetaValue" />
+                    </VBox>
+                </HBox>
+
+                <!-- Counts Breakdown -->
+                <VBox class="sapUiSmallMarginBottom">
+                    <Label text="Quantitative Breakdown" design="Bold" class="sapUiTinyMarginBottom" />
+                    <HBox justifyContent="SpaceAround" class="sapUiSmallMarginBottom">
+                        <VBox alignItems="Center">
+                            <Text text="ASSIGNED" class="sapDashDialogMetaLabel" />
+                            <Title text="{dashboard>/selectedItem/assigned}" level="H2" class="sapDashCountBlue" />
+                        </VBox>
+                        <VBox alignItems="Center">
+                            <Text text="NOT ASSIGNED" class="sapDashDialogMetaLabel" />
+                            <Title text="{dashboard>/selectedItem/notAssigned}" level="H2" class="sapDashCountGold" />
+                        </VBox>
+                        <VBox alignItems="Center">
+                            <Text text="TOTAL VOLUME" class="sapDashDialogMetaLabel" />
+                            <Title text="{dashboard>/selectedItem/total}" level="H2" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Proportional Bar Visualization -->
+                <VBox class="sapUiSmallMarginBottom">
+                    <HBox justifyContent="SpaceBetween">
+                        <Text text="Proportional Allocation (Ratio %)" class="sapDashDialogMetaLabel" />
+                        <Text text="{parts: [{path: 'dashboard>/selectedItem/assignedPercentage'}], formatter: '.formatter.percentageText'}" />
+                    </HBox>
+                    <dash:SegmentedBar
+                        assigned="{dashboard>/selectedItem/assigned}"
+                        notAssigned="{dashboard>/selectedItem/notAssigned}"
+                        total="{dashboard>/selectedItem/total}"
+                        scaleMode="proportion"
+                        height="12px"
+                        class="sapUiTinyMarginTop sapUiTinyMarginBottom" />
+                </VBox>
+
+                <!-- Absolute Volume Bar Visualization -->
+                <VBox class="sapUiSmallMarginBottom">
+                    <HBox justifyContent="SpaceBetween">
+                        <Text text="Absolute Volume Track (vs Max Volume)" class="sapDashDialogMetaLabel" />
+                        <Text text="{= ${dashboard>/selectedItem/total} + ' of ' + ${dashboard>/stats/maxItemVolume} + ' max'}" />
+                    </HBox>
+                    <dash:SegmentedBar
+                        assigned="{dashboard>/selectedItem/assigned}"
+                        notAssigned="{dashboard>/selectedItem/notAssigned}"
+                        total="{dashboard>/selectedItem/total}"
+                        scaleMode="absolute"
+                        maxVolume="{dashboard>/stats/maxItemVolume}"
+                        height="12px"
+                        class="sapUiTinyMarginTop sapUiTinyMarginBottom" />
+                </VBox>
+
+                <!-- Natural Language Insight -->
+                <VBox class="sapDashDialogInsightBox">
+                    <Text text="{dashboard>/selectedItem/insightText}" />
+                </VBox>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Close" type="Emphasized" press=".onCloseDialog" />
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,31 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dash="sap.dashboard.control">
+    <VBox width="100%" class="sapDashButterflyContainer">
+        <!-- Header Row -->
+        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapDashButterflyHeader">
+            <HBox alignItems="Center" class="sapUiTinyMarginBegin">
+                <core:Icon src="sap-icon://circle-task-2" size="0.85rem" color="#d08014" class="sapUiTinyMarginEnd" />
+                <Text text="← NOT ASSIGNED (Bilateral Wing Left)" />
+            </HBox>
+            <Text text="CENTRAL ZERO BASELINE / ITEM" class="sapUiBold" />
+            <HBox alignItems="Center" class="sapUiTinyMarginEnd">
+                <Text text="ASSIGNED (Bilateral Wing Right) →" />
+                <core:Icon src="sap-icon://circle-task-2" size="0.85rem" color="#0a6ed1" class="sapUiTinyMarginBegin" />
+            </HBox>
+        </HBox>
+
+        <!-- Rows Container -->
+        <VBox items="{dashboard>/filteredItems}">
+            <dash:ButterflyRow
+                itemId="{dashboard>id}"
+                name="{dashboard>name}"
+                assigned="{dashboard>assigned}"
+                notAssigned="{dashboard>notAssigned}"
+                total="{dashboard>total}"
+                maxSingleValue="{dashboard>/stats/maxSingleValue}"
+                press=".onItemPress" />
+        </VBox>
+    </VBox>
+</core:FragmentDefinition>

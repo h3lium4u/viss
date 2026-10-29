@@ -1,0 +1,21 @@
+{
+  "name": "visss-sapui5-dashboard",
+  "version": "1.0.0",
+  "description": "SAPUI5 Assigned vs Not Assigned Analytics Dashboard",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "build": "node -e \"console.log('Vercel static build successful')\"",
+    "test": "node test/dashboard.test.js"
+  },
+  "keywords": [
+    "sapui5",
+    "openui5",
+    "fiori",
+    "dashboard",
+    "data-visualization",
+    "vercel"
+  ],
+  "author": "",
+  "license": "UNLICENSED"
+}

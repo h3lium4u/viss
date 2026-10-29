@@ -1,0 +1,808 @@
+/* SAP Fiori Horizon Custom Styling for Assigned vs Not Assigned Dashboard */
+
+:root {
+  --sap-shell-bg: #1c2d42;
+  --sap-page-bg: #f5f6f7;
+  --sap-card-bg: #ffffff;
+  --sap-border-color: #d5dadd;
+  --sap-border-subtle: #e5e9ec;
+  --sap-text-primary: #1d2d3e;
+  --sap-text-secondary: #556b82;
+  --sap-assigned-blue: #0a6ed1;
+  --sap-assigned-dark: #0854a0;
+  --sap-not-assigned-gold: #d08014;
+  --sap-not-assigned-dark: #9b5d0c;
+  --sap-positive-green: #107e3e;
+  --sap-critical-red: #bb0000;
+  --sap-neutral-gray: #89919a;
+}
+
+body.sapUiBody {
+  background-color: var(--sap-page-bg);
+  font-family: "72", "72full", Arial, Helvetica, sans-serif;
+  color: var(--sap-text-primary);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header & Shell Bar */
+.sapDashShellHeader {
+  background-color: var(--sap-shell-bg);
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.sapDashShellTitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #ffffff !important;
+  letter-spacing: -0.01em;
+}
+
+.sapDashPageHeader {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--sap-border-color);
+  padding: 1.25rem 2rem 1rem 2rem;
+}
+
+.sapDashPageTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--sap-text-primary);
+}
+
+/* KPI Tiles */
+.sapDashTileCard {
+  background: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sapDashTileCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.sapDashTileValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--sap-text-primary);
+  line-height: 1.2;
+}
+
+.sapDashTileLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sap-text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+/* Controls Toolbar */
+.sapDashControlsPanel {
+  background-color: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Segmented Bar Track */
+.sapDashSegmentedBarTrack {
+  width: 100%;
+  background-color: #e5e9ec;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+}
+
+.sapDashSegmentAssigned {
+  background-color: var(--sap-assigned-blue);
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
+.sapDashSegmentNotAssigned {
+  background-color: var(--sap-not-assigned-gold);
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
+.sapDashAbsoluteInnerBar {
+  display: flex;
+  height: 100%;
+  background-color: #e5e9ec;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.sapDashNoDataBar {
+  background: repeating-linear-gradient(
+    45deg,
+    #f5f6f7,
+    #f5f6f7 6px,
+    #d5dadd 6px,
+    #d5dadd 12px
+  );
+  border-radius: 4px;
+}
+
+/* Card Grid */
+.sapDashCardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.sapDashItemCard {
+  background: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sapDashItemCard:hover,
+.sapDashItemCard:focus {
+  border-color: var(--sap-assigned-blue);
+  box-shadow: 0 6px 14px rgba(10, 110, 209, 0.12);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.sapDashCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.sapDashCardId {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--sap-text-secondary);
+}
+
+.sapDashCardPct {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--sap-text-primary);
+}
+
+.sapDashCardName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--sap-text-primary);
+  margin-bottom: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sapDashCardStats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--sap-text-secondary);
+  margin-top: 0.5rem;
+}
+
+/* Heatmap Matrix */
+.sapDashHeatmapGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.sapDashHeatmapCell {
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 68px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+}
+
+.sapDashHeatmapCell:hover,
+.sapDashHeatmapCell:focus {
+  transform: scale(1.04);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  outline: 2px solid var(--sap-assigned-blue);
+}
+
+.sapDashHeatmapCellHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.sapDashHeatmapCellId {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.sapDashHeatmapCellPct {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.sapDashHeatmapCellFooter {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.sapDashHeatmapLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.sapDashHeatmapLegendBox {
+  width: 24px;
+  height: 18px;
+  border-radius: 3px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Butterfly Diverging Chart */
+.sapDashButterflyContainer {
+  background: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.sapDashButterflyHeader {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  border-bottom: 2px solid var(--sap-border-color);
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--sap-text-secondary);
+}
+
+.sapDashButterflyRow {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--sap-border-subtle);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.sapDashButterflyRow:hover,
+.sapDashButterflyRow:focus {
+  background-color: #ebf3fc;
+  outline: none;
+}
+
+.sapDashButterflyLeftWing {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sapDashButterflyTrackLeft {
+  flex: 1;
+  max-width: 320px;
+  height: 14px;
+  background-color: #f1f4f6;
+  border-radius: 3px;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.sapDashButterflyBarLeft {
+  height: 100%;
+  background-color: var(--sap-not-assigned-gold);
+  border-radius: 3px 0 0 3px;
+}
+
+.sapDashButterflyValLeft {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sap-not-assigned-gold);
+  min-width: 38px;
+  text-align: right;
+}
+
+.sapDashButterflyCenter {
+  width: 220px;
+  text-align: center;
+  position: relative;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sapDashButterflyAxisLine {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 50%;
+  width: 2px;
+  background-color: #cbd5e1;
+  z-index: 1;
+}
+
+.sapDashButterflyId {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--sap-text-secondary);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0 4px;
+}
+
+.sapDashButterflyName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sap-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0 4px;
+}
+
+.sapDashButterflyRightWing {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.sapDashButterflyTrackRight {
+  flex: 1;
+  max-width: 320px;
+  height: 14px;
+  background-color: #f1f4f6;
+  border-radius: 3px;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.sapDashButterflyBarRight {
+  height: 100%;
+  background-color: var(--sap-assigned-blue);
+  border-radius: 0 3px 3px 0;
+}
+
+.sapDashButterflyValRight {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sap-assigned-blue);
+  min-width: 38px;
+  text-align: left;
+}
+
+/* Dumbbell Paired Dot Plot */
+.sapDashDumbbellContainer {
+  background: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sapDashDumbbellRow {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--sap-border-subtle);
+  padding: 0.6rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.sapDashDumbbellRow:hover,
+.sapDashDumbbellRow:focus {
+  background-color: #ebf3fc;
+  outline: none;
+}
+
+.sapDashDumbbellLabelCol {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 12px;
+}
+
+.sapDashDumbbellId {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--sap-text-secondary);
+}
+
+.sapDashDumbbellName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sap-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sapDashDumbbellTrackCol {
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.sapDashDumbbellTrack {
+  height: 6px;
+  background-color: #edf1f5;
+  border-radius: 3px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sapDashDumbbellConnector {
+  position: absolute;
+  height: 4px;
+  background-color: #94a3b8;
+  border-radius: 2px;
+}
+
+.sapDashDumbbellDotAssigned {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--sap-assigned-blue);
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, 0);
+  z-index: 3;
+}
+
+.sapDashDumbbellDotNotAssigned {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--sap-not-assigned-gold);
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, 0);
+  z-index: 2;
+}
+
+.sapDashDumbbellDotCoincident {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sap-assigned-blue) 45%, var(--sap-not-assigned-gold) 50%);
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, 0);
+  z-index: 4;
+}
+
+.sapDashDumbbellStatsCol {
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.sapDashDumbbellCountAssigned {
+  color: var(--sap-assigned-blue);
+  font-weight: 700;
+}
+
+.sapDashDumbbellCountNotAssigned {
+  color: var(--sap-not-assigned-gold);
+  font-weight: 700;
+}
+
+.sapDashDumbbellCountDivider {
+  color: #cbd5e1;
+}
+
+.sapDashDumbbellDeltaBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.sapDashDeltaPositive {
+  background-color: #ebf3fc;
+  color: var(--sap-assigned-blue);
+  border: 1px solid #cce2f7;
+}
+
+.sapDashDeltaNegative {
+  background-color: #fff9ed;
+  color: var(--sap-not-assigned-gold);
+  border: 1px solid #ffd591;
+}
+
+.sapDashDumbbellNoDataBadge {
+  font-size: 0.75rem;
+  color: var(--sap-neutral-gray);
+  background: #f1f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Scatter Plot */
+.sapDashScatterContainer {
+  background: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.sapDashScatterSvg {
+  width: 100%;
+  height: auto;
+  max-height: 540px;
+  display: block;
+}
+
+.sapDashScatterAxis {
+  stroke: #94a3b8;
+  stroke-width: 1.5;
+}
+
+.sapDashScatterQuadrantLine {
+  stroke: #cbd5e1;
+  stroke-width: 1;
+  stroke-dasharray: 4, 4;
+}
+
+.sapDashScatterGridLine {
+  stroke: #f1f5f9;
+  stroke-width: 1;
+}
+
+.sapDashScatterTickLabel {
+  fill: #64748b;
+  font-size: 11px;
+  font-family: inherit;
+}
+
+.sapDashScatterAxisTitle {
+  fill: #1d2d3e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sapDashQuadrantLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.sapDashQuadrantOptimal {
+  fill: #107e3e;
+}
+
+.sapDashQuadrantVolume {
+  fill: #0a6ed1;
+}
+
+.sapDashQuadrantLow {
+  fill: #64748b;
+}
+
+.sapDashQuadrantWarning {
+  fill: #d08014;
+}
+
+.sapDashScatterPointGroup {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.sapDashScatterPointGroup:hover .sapDashScatterDot,
+.sapDashScatterPointGroup:focus .sapDashScatterDot {
+  stroke-width: 3;
+  stroke: #ffffff;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+  transform: scale(1.15);
+  transform-origin: center;
+}
+
+.sapDashScatterLegendBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--sap-border-subtle);
+  font-size: 0.82rem;
+  color: var(--sap-text-secondary);
+}
+
+.sapDashLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sapDashLegendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sapDashDotGreen { background-color: var(--sap-positive-green); }
+.sapDashDotBlue { background-color: var(--sap-assigned-blue); }
+.sapDashDotOrange { background-color: var(--sap-not-assigned-gold); }
+.sapDashDotRed { background-color: var(--sap-critical-red); }
+.sapDashDotGray { background-color: var(--sap-neutral-gray); }
+
+/* Item Detail Dialog */
+.sapDashDialogHeaderBox {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--sap-border-color);
+  margin-bottom: 1rem;
+}
+
+.sapDashDialogMetaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  background-color: #f8fafc;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 1rem;
+}
+
+.sapDashDialogMetaItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.sapDashDialogMetaLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sap-text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.sapDashDialogMetaValue {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--sap-text-primary);
+  margin-top: 2px;
+}
+
+.sapDashDialogInsightBox {
+  background-color: #ebf3fc;
+  border-left: 4px solid var(--sap-assigned-blue);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #1d2d3e;
+}
+
+
+/* Circular Donut / Pie Chart (Matching Reference Pattern) */
+.sapDashDonutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.sapDashDonutCard {
+  background: #ffffff;
+  border: 1px solid var(--sap-border-color);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+}
+
+.sapDashDonutCard:hover,
+.sapDashDonutCard:focus {
+  transform: translateY(-2px);
+  border-color: var(--sap-assigned-blue);
+  box-shadow: 0 4px 12px rgba(10, 110, 209, 0.15);
+  outline: none;
+}
+
+.sapDashDonutHeader {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2px;
+}
+
+.sapDashDonutSvgWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sapDashDonutSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.sapDashDonutArc {
+  transition: stroke-dashoffset 0.35s ease;
+}
+
+.sapDashDonutCenterText {
+  font-size: 20px;
+  font-weight: 800;
+  font-family: inherit;
+}
+
+.sapDashDonutName {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--sap-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 115px;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.sapDashDonutStats {
+  font-size: 0.72rem;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}

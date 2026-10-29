@@ -1,0 +1,66 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dash="sap.dashboard.control">
+    <VBox width="100%">
+        <!-- Macro Donut Feature Header (Matching large reference donuts) -->
+        <HBox wrap="Wrap" alignItems="Center" justifyContent="SpaceBetween" class="sapDashTileCard sapUiSmallMarginBottom">
+            <HBox alignItems="Center">
+                <dash:DonutChart
+                    itemId="OVERALL"
+                    name="Macro Cohort Allocation"
+                    assigned="{dashboard>/stats/totalAssigned}"
+                    notAssigned="{dashboard>/stats/totalNotAssigned}"
+                    total="{dashboard>/stats/totalVolume}"
+                    assignedPercentage="{dashboard>/stats/overallPercentage}"
+                    size="130"
+                    showMeta="false"
+                    class="sapUiSmallMarginEnd" />
+                <VBox>
+                    <Text text="OVERALL COHORT ALLOCATION RATE" class="sapDashTileLabel" />
+                    <Title text="{parts: [{path: 'dashboard>/stats/overallPercentage'}], formatter: '.formatter.percentageText'}" level="H2" class="sapDashTileValue" />
+                    <Text text="{= ${dashboard>/stats/totalAssigned} + ' Assigned / ' + ${dashboard>/stats/totalNotAssigned} + ' Not Assigned across ' + ${dashboard>/stats/totalItems} + ' items'}" class="sapUiTinyMarginTop sapDashDialogMetaLabel" />
+                </VBox>
+            </HBox>
+
+            <!-- Legend Bar -->
+            <HBox wrap="Wrap" alignItems="Center" class="sapDashScatterLegendBar">
+                <HBox alignItems="Center" class="sapUiSmallMarginEnd">
+                    <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#107e3e" class="sapUiTinyMarginEnd" />
+                    <Text text="100% Assigned" />
+                </HBox>
+                <HBox alignItems="Center" class="sapUiSmallMarginEnd">
+                    <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#0a6ed1" class="sapUiTinyMarginEnd" />
+                    <Text text="≥50% Assigned" />
+                </HBox>
+                <HBox alignItems="Center" class="sapUiSmallMarginEnd">
+                    <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#d08014" class="sapUiTinyMarginEnd" />
+                    <Text text="&lt;50% Assigned" />
+                </HBox>
+                <HBox alignItems="Center" class="sapUiSmallMarginEnd">
+                    <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#bb0000" class="sapUiTinyMarginEnd" />
+                    <Text text="0% Assigned" />
+                </HBox>
+                <HBox alignItems="Center">
+                    <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#89919a" class="sapUiTinyMarginEnd" />
+                    <Text text="No Data (—)" />
+                </HBox>
+            </HBox>
+        </HBox>
+
+        <!-- Donut / Pie Grid (Matching grid of circular rings in reference image) -->
+        <HBox wrap="Wrap" items="{dashboard>/filteredItems}" class="sapDashDonutGrid">
+            <dash:DonutChart
+                itemId="{dashboard>id}"
+                name="{dashboard>name}"
+                assigned="{dashboard>assigned}"
+                notAssigned="{dashboard>notAssigned}"
+                total="{dashboard>total}"
+                assignedPercentage="{dashboard>assignedPercentage}"
+                status="{dashboard>status}"
+                size="110"
+                showMeta="true"
+                press=".onItemPress" />
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

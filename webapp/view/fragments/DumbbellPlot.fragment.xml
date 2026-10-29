@@ -1,0 +1,36 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dash="sap.dashboard.control">
+    <VBox width="100%" class="sapDashDumbbellContainer">
+        <!-- Dumbbell Header -->
+        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapDashButterflyHeader">
+            <Text text="Item Identification" width="220px" class="sapUiTinyMarginBegin" />
+            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiResponsiveMargin">
+                <Text text="0" />
+                <HBox alignItems="Center">
+                    <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#0a6ed1" class="sapUiTinyMarginEnd" />
+                    <Text text="Assigned Dot" class="sapUiSmallMarginEnd" />
+                    <core:Icon src="sap-icon://circle-task-2" size="0.75rem" color="#d08014" class="sapUiTinyMarginEnd" />
+                    <Text text="Not Assigned Dot" />
+                </HBox>
+                <Text text="{= ${dashboard>/scaleMode} === 'absolute' ? ${dashboard>/stats/maxItemVolume} + ' (Max Volume)' : '100%'}" />
+            </HBox>
+            <Text text="Assigned / Not Assigned (Gap)" width="180px" textAlign="End" class="sapUiTinyMarginEnd" />
+        </HBox>
+
+        <!-- Rows Container -->
+        <VBox items="{dashboard>/filteredItems}">
+            <dash:DumbbellRow
+                itemId="{dashboard>id}"
+                name="{dashboard>name}"
+                assigned="{dashboard>assigned}"
+                notAssigned="{dashboard>notAssigned}"
+                total="{dashboard>total}"
+                assignedPercentage="{dashboard>assignedPercentage}"
+                scaleMode="{dashboard>/scaleMode}"
+                maxVolume="{dashboard>/stats/maxItemVolume}"
+                press=".onItemPress" />
+        </VBox>
+    </VBox>
+</core:FragmentDefinition>
