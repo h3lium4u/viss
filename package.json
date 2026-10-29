@@ -2,10 +2,11 @@
   "name": "visss-sapui5-dashboard",
   "version": "1.0.0",
   "description": "SAPUI5 Assigned vs Not Assigned Analytics Dashboard",
+  "main": "server.js",
   "private": true,
   "scripts": {
     "build": "node build.js",
-    "start": "node dev-server.js",
+    "start": "node server.js",
     "test": "node test/dashboard.test.js"
   },
   "keywords": [

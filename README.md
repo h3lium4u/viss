@@ -23,7 +23,7 @@ A high-performance SAPUI5 / OpenUI5 application comparing six visualization para
 ```bash
 npm start
 # Or directly:
-node dev-server.js
+node server.js
 ```
 The application will be accessible at:
 - Root URL: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)

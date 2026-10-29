@@ -2,6 +2,11 @@
   "buildCommand": "node build.js",
   "outputDirectory": "dist",
   "cleanUrls": false,
+  "functions": {
+    "server.js": {
+      "includeFiles": "{index.html,webapp/**,dist/**}"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
