@@ -4,6 +4,7 @@
   "description": "SAPUI5 Assigned vs Not Assigned Analytics Dashboard",
   "private": true,
   "scripts": {
+    "build": "node build.js",
     "start": "node dev-server.js",
     "test": "node test/dashboard.test.js"
   },
